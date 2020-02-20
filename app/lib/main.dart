@@ -1,3 +1,4 @@
+import 'package:app/message.dart';
 import 'package:app/screens/chatScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -45,16 +46,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  List<Message> _messages;
 
-  void _incrementCounter() {
+  _MyHomePageState() {
+    _messages = List();
+  }
+
+  void _sendMsg(String msg) {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+      _messages.add(Message(message: msg, user: "TheKingDave <|_"));
     });
   }
 
@@ -72,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: ChatScreen(), // This trailing comma makes auto-formatting nicer for build methods.
+      body: ChatScreen(messages: _messages, sendMessage: _sendMsg), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
